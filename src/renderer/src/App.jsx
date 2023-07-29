@@ -1,10 +1,9 @@
 import { ColorSchemeProvider, MantineProvider } from '@mantine/core'
+import { Notifications } from '@mantine/notifications'
 import { useState } from 'react'
-import NavLayout from './layouts/NavLayout'
 import { Theme_colors } from './utils/const'
-import { Route, Switch } from 'wouter'
-import InfoNavSection from './components/navbar/InfoNavSection'
-import CreateDatabasesPage from './pages/CreateDatabasesPage'
+import RouterPages from './pages/RouterPages'
+import './assets/main.css'
 
 function App() {
   const [colorScheme, setColorScheme] = useState('dark')
@@ -22,16 +21,8 @@ function App() {
         withGlobalStyles
         withNormalizeCSS
       >
-        <Switch>
-          <Route path="/init">
-            <CreateDatabasesPage />
-          </Route>
-          <NavLayout>
-            <Route path="/home">
-              <InfoNavSection />
-            </Route>
-          </NavLayout>
-        </Switch>
+        <Notifications />
+        <RouterPages />
       </MantineProvider>
     </ColorSchemeProvider>
   )

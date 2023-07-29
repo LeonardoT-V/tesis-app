@@ -52,15 +52,17 @@ function NavLayout({ children }) {
         sx={(theme) => ({
           padding: `${theme.spacing.xs} ${theme.spacing.xs} ${theme.spacing.xs} 0`,
           backgroundColor: theme.colorScheme === 'dark' ? theme.colors.bg[3] : theme.colors.bg[0],
-          height: '100%'
+          height: '100%',
+          minHeight: '100%'
         })}
       >
         <Flex
           direction="column"
-          rowGap={'lg'}
+          rowGap={'xl'}
           sx={(theme) => ({
             backgroundColor: theme.colorScheme === 'dark' ? theme.colors.bg[4] : theme.colors.bg[1],
             minHeight: '100%',
+            height: '100%',
             boxShadow: theme.shadows.xs,
             padding: theme.spacing.md,
             borderRadius: theme.radius.sm

@@ -1,7 +1,9 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import ProjectIPC from './ipcCRUD/projectIPC'
+import EditorIPC from './ipcCRUD/editorIPC'
 
 function createWindow() {
   // Create the browser window.
@@ -19,6 +21,9 @@ function createWindow() {
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
+    if (!is.dev) {
+      mainWindow.removeMenu()
+    }
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -48,6 +53,22 @@ app.whenReady().then(() => {
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
+
+  const projectIPC = new ProjectIPC(app)
+  const editorIPC = new EditorIPC(app)
+
+  ipcMain.handle('project:create', (_, project) => projectIPC.createNewProject(project))
+  ipcMain.handle('project:readAll', () => projectIPC.readAllProject())
+  ipcMain.handle('project:read', (_, project) => projectIPC.readOneProject(project))
+  ipcMain.handle('project:update', (_, project) => projectIPC.updateOneProject(project))
+  ipcMain.handle('project:delete', (_, project) => projectIPC.deleteOneProject(project))
+  ipcMain.handle('project:conection', (_, project) => projectIPC.tryconectionToDB(project))
+  ipcMain.handle('editor:execute', (_, project, command) =>
+    editorIPC.executeSqlCommand(project, command)
+  )
+  ipcMain.handle('editor:execute-file', (_, project, path) =>
+    editorIPC.executeFileCommand(project, path)
+  )
 
   createWindow()
 

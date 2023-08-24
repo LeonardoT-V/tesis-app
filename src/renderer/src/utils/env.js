@@ -1,4 +1,4 @@
-export { default as ICON_APP_PATH } from '@renderer/assets/mata.svg'
+export { default as ICON_APP_PATH } from '@renderer/assets/logo.svg'
 export const NAME_APP = 'MkAPI'
 export const VERSION_APP = '1.0.0'
 export const LOCAL_KEY_PROJECT = 'project:key'

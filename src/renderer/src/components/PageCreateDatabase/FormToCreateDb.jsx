@@ -16,12 +16,12 @@ function FormToCreateDb() {
   return (
     <Formik
       initialValues={{
-        file: 'postgresql',
-        username: 'postgres',
-        password: 'u1HmffsGnq4JG9M5uWnL',
-        hostname: 'containers-us-west-100.railway.app',
-        port: '7889',
-        database: 'railway'
+        file: '',
+        username: '',
+        password: '',
+        hostname: '',
+        port: '',
+        database: ''
       }}
       onSubmit={async (values, action) => {
         const status = await createNewProject({ form: values })

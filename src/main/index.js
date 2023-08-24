@@ -1,7 +1,7 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import icon from '../../resources/logo1.png?asset'
+import icon from '../../resources/logo.png?asset'
 import ProjectIPC from './ipcCRUD/projectIPC'
 import EditorIPC from './ipcCRUD/editorIPC'
 import ExampleIPC from './ipcCRUD/exampleIPC'

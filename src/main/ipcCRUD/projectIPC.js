@@ -12,22 +12,23 @@ class ProjectIPC {
     try {
       const conection = await this.tryconectionToDB(project)
 
+      // si no existe una conexión, enviar al cliente el error presentado
       if (conection) {
         return conection
       }
 
-      // si no existe el directorio se crea
+      // si no existe el directorio para los proyecto se crea la carpeta
       if (!fs.existsSync(`${this.APPDATA}`)) {
         fs.mkdirSync(`${this.APPDATA}`)
       }
 
-      // verifica la existencia del proyecto
-      if (fs.existsSync(`${this.APPDATA}/${project.namefile}.json`)) {
+      // verifica si existe el un proyecto con el mismo nombre
+      if (fs.existsSync(`${this.APPDATA}/${project.file}.json`)) {
         return {
           error: {
             data: {
               code: '',
-              description: `El proyecto ${project.namefile} ya existe`,
+              description: `El proyecto ${project.file} ya existe`,
               details: 'Intente crear un nuevo proyecto con otro nombre'
             }
           }
@@ -35,7 +36,7 @@ class ProjectIPC {
       }
 
       const newJson = {
-        name: project.namefile,
+        name: project.file,
         db: {
           username: project.username,
           password: project.password,
@@ -47,7 +48,7 @@ class ProjectIPC {
 
       // crea el archivo json con la configuracion de la base de datos
       fs.writeFile(
-        `${this.APPDATA}/${project.namefile}.json`,
+        `${this.APPDATA}/${project.file}.json`,
         JSON.stringify(newJson, null, 2),
         (err) => {
           if (err) return console.log(err)
@@ -73,9 +74,6 @@ class ProjectIPC {
     })
 
     if (files.length === 0) {
-      /* throw new Error('No projects found', {
-        cause: { msg: 'hay cero' }
-      }) */
       return { error: { msg: 'No se encontraron proyectos', data: [] } }
     }
 
@@ -93,11 +91,62 @@ class ProjectIPC {
   }
 
   async updateOneProject(project) {
-    console.log('update', project)
+    const allFiles = fs.readdirSync(this.APPDATA, {
+      encoding: 'utf-8',
+      withFileTypes: false
+    })
+
+    if (!fs.existsSync(`${this.APPDATA}/${project.namefile}.json`)) {
+      return { error: { description: `El projecto ${project.namefile} no existe` } }
+    }
+
+    if (allFiles.includes(`${project.newNameFile}.json`)) {
+      if (project.newNameFile !== project.namefile) {
+        return {
+          error: { description: `El projecto ${project.newNameFile} ya existe, use otro nombre` }
+        }
+      }
+    }
+
+    const projectParse = JSON.parse(
+      fs.readFileSync(`${this.APPDATA}/${project.namefile}.json`, {
+        encoding: 'utf-8'
+      })
+    )
+
+    if (project.newNameFile !== project.namefile) {
+      fs.renameSync(
+        `${this.APPDATA}/${project.namefile}.json`,
+        `${this.APPDATA}/${project.newNameFile}.json`
+      )
+    }
+    projectParse.name = project.newNameFile
+    projectParse.db = {
+      username: project.username,
+      password: project.password,
+      hostname: project.hostname,
+      port: project.port,
+      database: project.database
+    }
+
+    fs.writeFileSync(
+      `${this.APPDATA}/${project.newNameFile}.json`,
+      JSON.stringify(projectParse, null, 2)
+    )
+
+    return {
+      response: { description: `El projecto ha sido ${project.newNameFile} ha sido actualizado` }
+    }
   }
 
   async deleteOneProject(project) {
-    console.log('delete', project)
+    if (!fs.existsSync(`${this.APPDATA}/${project.namefile}.json`)) {
+      return { error: { description: `El projecto ${project.namefile} no existe` } }
+    }
+
+    fs.rmSync(`${this.APPDATA}/${project.namefile}.json`)
+
+    return { response: { description: `Project ${project.namefile} deleted` } }
   }
 
   async tryconectionToDB(project) {

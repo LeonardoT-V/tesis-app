@@ -1,4 +1,4 @@
-# tesis-react
+# Mkapi
 
 An Electron application with React
 

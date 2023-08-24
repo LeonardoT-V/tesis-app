@@ -1,15 +1,19 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import icon from '../../resources/icon.png?asset'
+import icon from '../../resources/logo1.png?asset'
 import ProjectIPC from './ipcCRUD/projectIPC'
 import EditorIPC from './ipcCRUD/editorIPC'
+import ExampleIPC from './ipcCRUD/exampleIPC'
+import DatabaseIPC from './ipcCRUD/databaseIPC'
 
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 900,
+    minWidth: 780,
     height: 670,
+    minHeight: 580,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
@@ -56,6 +60,10 @@ app.whenReady().then(() => {
 
   const projectIPC = new ProjectIPC(app)
   const editorIPC = new EditorIPC(app)
+  const databaseIPC = new DatabaseIPC(app)
+  const exampleIPC = new ExampleIPC(app)
+  //borrador
+  ipcMain.handle('backup:check-command', (_, project) => exampleIPC.executeLocalCommand(project))
 
   ipcMain.handle('project:create', (_, project) => projectIPC.createNewProject(project))
   ipcMain.handle('project:readAll', () => projectIPC.readAllProject())
@@ -68,6 +76,15 @@ app.whenReady().then(() => {
   )
   ipcMain.handle('editor:execute-file', (_, project, path) =>
     editorIPC.executeFileCommand(project, path)
+  )
+  ipcMain.handle('database:db-tables-created', (_, { project, path }) =>
+    databaseIPC.tablesCreatedDb({ project, path })
+  )
+  ipcMain.handle('database:db-columns-created', (_, { project, path }) =>
+    databaseIPC.columnsCreatedDb({ project, path })
+  )
+  ipcMain.handle('database:db-atributes-created', (_, { project }) =>
+    databaseIPC.allAtributesDatabase({ project })
   )
 
   createWindow()

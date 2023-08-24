@@ -1,73 +1,9 @@
-import { IconHome } from '@tabler/icons-react'
-import CreateDatabasesPage from '../pages/CreateDatabasesPage'
-import InfoNavSection from '../components/navbar/InfoNavSection'
-import { IconCode } from '@tabler/icons-react'
-import { IconTableColumn } from '@tabler/icons-react'
-import EditorSqlPage from '../pages/EditorSqlPage'
-import TablesDatabasePage from '../pages/TablesDatabasePage'
 import { IconTable } from '@tabler/icons-react'
+import { IconDatabaseExport } from '@tabler/icons-react'
+import { IconReportAnalytics } from '@tabler/icons-react'
+import { IconCode } from '@tabler/icons-react'
+import { IconHome } from '@tabler/icons-react'
 import { IconBrackets } from '@tabler/icons-react'
-
-export const Theme_colors = {
-  primary: [
-    '#d9fdff', //0
-    '#adf0ff', //1
-    '#7de4ff', //2
-    '#4dd9ff', //3
-    '#26cefe', //4
-    '#15b5e5', //5
-    '#008cb3', //6
-    '#007a9b', //7
-    '#00627c', //8
-    '#00556d' //9
-  ],
-  secondary: [
-    '#f9f0e6', //0
-    '#eed1b3', //1
-    '#eed1b3', //2
-    '#e9c199', //3
-    '#e3b280', //4
-    '#dda366', //5
-    '#d8934d', //6
-    '#d28433', //7
-    '#cd741a', //8
-    '#c76500' //9
-  ],
-  bg: [
-    '#F5F5F5', // fondo-light
-    '#EBEBEB', // bordes-fondo-light
-    '#F0F0F0', // fondo-alt-light
-    '#2d2d2d', //fonto-alt-black
-    '#1E1E1E', // bordes-fondo-dark
-    '#393939' // fondo-black
-  ],
-  dark: [
-    '#fffff',
-    '#A6A7AB',
-    '#909296',
-    '#5C5F66',
-    '#373A40',
-    '#393939', // bg de los form y algunos hovers
-    '#25262B',
-    '#1A1B1E',
-    '#141517',
-    '#101113'
-  ]
-}
-
-export const Pages_Items = [
-  { forNav: true, component: CreateDatabasesPage, path: '/app', name: 'Home', icon: IconHome },
-  {
-    forNav: true,
-    component: TablesDatabasePage,
-    path: '/tables',
-    name: 'Tables',
-    icon: IconTable
-  },
-  { forNav: true, component: InfoNavSection, path: '/data', name: 'Data', icon: IconTableColumn },
-  { forNav: true, component: EditorSqlPage, path: '/editor', name: 'Editor', icon: IconCode },
-  { forNav: true, component: InfoNavSection, path: '/backup', name: 'Backup', icon: IconCode }
-]
 
 export const Sql_Template_Code = [
   {
@@ -249,147 +185,160 @@ export const Sql_Template_Code = [
 ]
 
 export const Types_Postgres_Table = [
-  { name: 'bigint', description: 'signed eight-byte integer', icon: IconBrackets, color: 'grape' },
+  { name: 'bigint', description: 'signed eight-byte integer', icon: IconBrackets, color: 'red' },
   {
     name: 'bigserial',
     description: 'autoincrementing eight-byte integer',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'blue'
   },
-  { name: 'bit', description: 'fixed-length bit string', icon: IconBrackets, color: 'grape' },
+  { name: 'bit', description: 'fixed-length bit string', icon: IconBrackets, color: 'green' },
   {
     name: 'bit Varying',
     description: 'variable-length bit string',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'amber'
   },
   {
     name: 'boolean',
     description: 'logical Boolean (true/false)',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'purple'
   },
-  { name: 'box', description: 'rectangular box on a plane', icon: IconBrackets, color: 'grape' },
-  { name: 'bytea', description: 'binary data (“byte array”)', icon: IconBrackets, color: 'grape' },
+  { name: 'box', description: 'rectangular box on a plane', icon: IconBrackets, color: 'cyan' },
+  {
+    name: 'bytea',
+    description: 'binary data (“byte array”)',
+    icon: IconBrackets,
+    color: 'red'
+  },
   {
     name: 'character',
     description: '	fixed-length character string',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'blue'
   },
   {
     name: 'character varying',
     description: 'variable-length character string',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'green'
   },
-  { name: 'cidr', description: 'IPv4 or IPv6 network address', icon: IconBrackets, color: 'grape' },
-  { name: 'circle', description: 'circle on a plane', icon: IconBrackets, color: 'grape' },
+  { name: 'cidr', description: 'IPv4 or IPv6 network address', icon: IconBrackets, color: 'amber' },
+  { name: 'circle', description: 'circle on a plane', icon: IconBrackets, color: 'purple' },
   {
     name: 'date',
     description: 'calendar date (year, month, day)',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'cyan'
   },
   {
     name: 'double precision',
     label: 'doble',
     description: 'double precision floating-point number (8 bytes)',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'red'
   },
-  { name: 'inet', description: 'IPv4 or IPv6 host address', icon: IconBrackets, color: 'grape' },
-  { name: 'integer', description: 'signed four-byte integer', icon: IconBrackets, color: 'grape' },
-  { name: 'interval', description: 'time span', icon: IconBrackets, color: 'grape' },
-  { name: 'json', description: '	textual JSON data', icon: IconBrackets, color: 'grape' },
+  { name: 'inet', description: 'IPv4 or IPv6 host address', icon: IconBrackets, color: 'blue' },
+  { name: 'integer', description: 'signed four-byte integer', icon: IconBrackets, color: 'green' },
+  { name: 'interval', description: 'time span', icon: IconBrackets, color: 'amber' },
+  { name: 'json', description: '	textual JSON data', icon: IconBrackets, color: 'purple' },
   {
     name: 'jsonb',
     description: 'binary JSON data, decomposed',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'cyan'
   },
-  { name: 'line', description: 'infinite line on a plane', icon: IconBrackets, color: 'grape' },
-  { name: 'lseg', description: 'line segment on a plane', icon: IconBrackets, color: 'grape' },
+  { name: 'line', description: 'infinite line on a plane', icon: IconBrackets, color: 'red' },
+  { name: 'lseg', description: 'line segment on a plane', icon: IconBrackets, color: 'blue' },
   {
     name: 'macaddr',
     description: 'MAC (Media Access Control) address',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'green'
   },
   {
     name: 'macaddr8',
     description: 'MAC (Media Access Control) address (EUI-64 format)',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'amber'
   },
-  { name: 'money', description: 'currency amount', icon: IconBrackets, color: 'grape' },
+  { name: 'money', description: 'currency amount', icon: IconBrackets, color: 'purple' },
   {
     name: 'numeric',
     description: 'exact numeric of selectable precision',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'cyan'
   },
-  { name: 'path', description: 'geometric path on a plane', icon: IconBrackets, color: 'grape' },
-  { name: 'point', description: 'geometric point on a plane', icon: IconBrackets, color: 'grape' },
+  { name: 'path', description: 'geometric path on a plane', icon: IconBrackets, color: 'red' },
+  { name: 'point', description: 'geometric point on a plane', icon: IconBrackets, color: 'blue' },
   {
     name: 'polygon',
     description: 'closed geometric path on a plane',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'green'
   },
   {
     name: 'real',
     description: 'single precision floating-point number (4 bytes)',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'amber'
   },
-  { name: 'smallint', description: 'signed two-byte integer', icon: IconBrackets, color: 'grape' },
+  { name: 'smallint', description: 'signed two-byte integer', icon: IconBrackets, color: 'purple' },
   {
     name: 'smallserial',
     description: 'autoincrementing two-byte integer',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'cyan'
   },
   {
     name: 'serial',
     description: 'autoincrementing four-byte integer',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'red'
   },
   {
     name: 'text',
     description: 'variable-length character string',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'blue'
   },
-  { name: 'time', description: 'time of day (no time zone)', icon: IconBrackets, color: 'grape' },
+  { name: 'time', description: 'time of day (no time zone)', icon: IconBrackets, color: 'green' },
   {
     name: 'timez',
     description: 'time of day, including time zone',
     icon: IconBrackets,
-    color: 'grape',
+    color: 'amber',
     param: '(time, zone)'
   },
   {
     name: 'timestamp',
     description: 'date and time (no time zone)',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'purple'
   },
   {
     name: 'timestampz',
     description: 'date and time, including time zone',
     icon: IconBrackets,
-    color: 'grape',
+    color: 'cyan',
     param: '(time, zone)'
   },
-  { name: 'tsquery', description: 'text search query', icon: IconBrackets, color: 'grape' },
-  { name: 'tsvector', description: 'text search document', icon: IconBrackets, color: 'grape' },
+  { name: 'tsquery', description: 'text search query', icon: IconBrackets, color: 'red' },
+  { name: 'tsvector', description: 'text search document', icon: IconBrackets, color: 'blue' },
   {
     name: 'uuid',
     description: 'universally unique identifier',
     icon: IconBrackets,
-    color: 'grape'
+    color: 'green'
   },
-  { name: 'xml', description: 'XML data', icon: IconBrackets, color: 'grape' }
+  { name: 'xml', description: 'XML data', icon: IconBrackets, color: 'amber' }
+]
+
+export const NavLinks_Routes = [
+  { path: '/app/home', name: 'home', icon: IconHome },
+  { path: '/app/tables', name: 'tables', icon: IconTable, isSub: true },
+  { path: '/app/editor', name: 'editor', icon: IconCode },
+  { path: '/app/backup', name: 'backup', icon: IconDatabaseExport },
+  { path: '/app/data', name: 'data', icon: IconReportAnalytics }
 ]

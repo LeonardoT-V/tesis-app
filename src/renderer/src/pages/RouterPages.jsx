@@ -1,22 +1,38 @@
-import { Route, Switch } from 'wouter'
-import { Pages_Items } from '../utils/const'
-import NavLayout from '../layouts/NavLayout'
-import CreateDatabasesPage from './CreateDatabasesPage'
+import { Route, Routes } from 'react-router-dom'
+import CreateDatabase from './CreateDatabase'
+import { Outlet } from 'react-router-dom'
+import WithNavSection from '../layout/WithNavSection'
+import EditorPage from './EditorPage'
+import TablesPage from './TablesPage'
+import TablesColumnPage from './TablesColumnPage'
+import BackupPage from './BackupPage'
+import { HashRouter } from 'react-router-dom'
 
 function RouterPages() {
   return (
-    <Switch>
-      <Route path="/">
-        <CreateDatabasesPage />
-      </Route>
-      <NavLayout>
-        {Pages_Items.map((item) => (
-          <Route path={item.path} key={item.path}>
-            <item.component />
-          </Route>
-        ))}
-      </NavLayout>
-    </Switch>
+    <HashRouter>
+      <Routes>
+        <Route path="/" Component={CreateDatabase} />
+
+        <Route
+          path="app"
+          element={
+            <WithNavSection>
+              <Outlet />
+            </WithNavSection>
+          }
+          loader={async () => {
+            return ['hola']
+          }}
+        >
+          <Route path="home" element={<EditorPage />} />
+          <Route path="editor" element={<EditorPage />} />
+          <Route path="tables" element={<TablesPage />} />
+          <Route path="tables/:table" element={<TablesColumnPage />} />
+          <Route path="backup" element={<BackupPage />} />
+        </Route>
+      </Routes>
+    </HashRouter>
   )
 }
 

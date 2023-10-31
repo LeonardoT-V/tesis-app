@@ -1,9 +1,12 @@
-import { IconTable } from '@tabler/icons-react'
-import { IconDatabaseExport } from '@tabler/icons-react'
-import { IconReportAnalytics } from '@tabler/icons-react'
-import { IconCode } from '@tabler/icons-react'
-import { IconHome } from '@tabler/icons-react'
-import { IconBrackets } from '@tabler/icons-react'
+import {
+  IconBrackets,
+  IconHome,
+  IconCode,
+  IconReportAnalytics,
+  IconServerBolt,
+  IconDatabaseExport,
+  IconTable
+} from '@tabler/icons-react'
 
 export const Sql_Template_Code = [
   {
@@ -340,5 +343,6 @@ export const NavLinks_Routes = [
   { path: '/app/tables', name: 'tables', icon: IconTable, isSub: true },
   { path: '/app/editor', name: 'editor', icon: IconCode },
   { path: '/app/backup', name: 'backup', icon: IconDatabaseExport },
-  { path: '/app/data', name: 'data', icon: IconReportAnalytics }
+  { path: '/app/data', name: 'data', icon: IconReportAnalytics },
+  { path: '/app/api', name: 'api', icon: IconServerBolt }
 ]

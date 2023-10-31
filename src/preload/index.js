@@ -12,7 +12,8 @@ const project = {
 
 const editor = {
   executeSqlCommand: (project, command) => ipcRenderer.invoke('editor:execute', project, command),
-  executeFileCommand: (project, path) => ipcRenderer.invoke('editor:execute-file', project, path)
+  executeFileCommand: (project, path) => ipcRenderer.invoke('editor:execute-file', project, path),
+  executeApiRestQuery: () => ipcRenderer.invoke('editor:execute-api')
 }
 
 const database = {
@@ -22,6 +23,11 @@ const database = {
     ipcRenderer.invoke('database:db-columns-created', { project, path }),
   allAtributesDatabase: ({ project }) =>
     ipcRenderer.invoke('database:db-atributes-created', { project })
+}
+
+const express = {
+  openExpressServer: () => ipcRenderer.invoke('express:initialize-app'),
+  stopExpressServer: () => ipcRenderer.invoke('express:pause-app')
 }
 
 const backup = {
@@ -40,6 +46,7 @@ if (process.contextIsolated) {
       executeLocalCommand: (project) => ipcRenderer.invoke('example:prueba', project)
     })
     contextBridge.exposeInMainWorld('backup', backup)
+    contextBridge.exposeInMainWorld('express', express)
   } catch (error) {
     console.error(error)
   }

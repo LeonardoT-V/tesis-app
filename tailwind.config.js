@@ -19,6 +19,7 @@ module.exports = {
   darkMode: 'class',
   plugins: [
     nextui({
+      addCommonColors: true,
       defaultTheme: 'dark',
       themes: {
         dark: {

@@ -31,16 +31,8 @@ class EditorIPC {
     }
   }
 
-  async readOneProject(project) {
-    console.log('read one', project)
-  }
-
-  async updateOneProject(project) {
-    console.log('update', project)
-  }
-
-  async deleteOneProject(project) {
-    console.log('delete', project)
+  async executeApiRestQuery({ project, table, queryId, method, isId }) {
+    console.log({ project, table, queryId, method, isId })
   }
 }
 

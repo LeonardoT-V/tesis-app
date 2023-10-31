@@ -1,16 +1,11 @@
-import { Input } from '@nextui-org/react'
+import { Button, Input } from '@nextui-org/react'
 import { Field, Form, Formik, useFormik } from 'formik'
-import { useEffect } from 'react'
-import { useTables } from '../hooks/useTables'
-import { useRouteLoaderData } from 'react-router-dom'
-import { useDatabaseStore } from '../store/databaseStore'
+import { useEffect, useState } from 'react'
+import { useProject } from '../hooks/useProject'
 
 function BackupPage() {
-  const { data } = useRouteLoaderData('app')
-  console.log({ data })
-
-  const [database] = useDatabaseStore((state) => [state.database])
-  console.log({ store: database })
+  const { project } = useProject()
+  const [dd, setDd] = useState()
   const formik = useFormik({
     initialValues: {
       columna: '',
@@ -24,7 +19,7 @@ function BackupPage() {
       const msgList = val.filter((item) => values[item] === '')
       if (msgList.length !== 0) {
         // setError(msgList)
-        console.log(msgList)
+        setDd(msgList)
         return
       }
     }
@@ -38,9 +33,28 @@ function BackupPage() {
     hola()
   }, [])
 
+  const fetchData = async () => {
+    const e = await fetch('http://localhost:3000/api/table/hola', {
+      method: 'post',
+      body: JSON.stringify({ project: 'hola', casa: 'mundo' }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => data)
+    setDd(e)
+  }
+
   return (
     <div>
+      <Button onClick={window.express.openExpressServer}>reanude</Button>
+      <Button onClick={window.express.stopExpressServer}>stop</Button>
+      <Button onClick={fetchData}>fecth</Button>
+      <Button onClick={() => console.log(dd)}>ee</Button>
       <h1>Sign Up</h1>
+      {dd && dd?.post}
+      {project.api}
       <Formik
         initialValues={{
           picked: ''

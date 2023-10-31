@@ -6,7 +6,8 @@ import ProjectIPC from './ipcCRUD/projectIPC'
 import EditorIPC from './ipcCRUD/editorIPC'
 import ExampleIPC from './ipcCRUD/exampleIPC'
 import DatabaseIPC from './ipcCRUD/databaseIPC'
-
+import { openExpressServer, stopExpressServer } from './ipcCRUD/expressIPC'
+export let holaMundo = {}
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -43,7 +44,6 @@ function createWindow() {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
 }
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -77,6 +77,7 @@ app.whenReady().then(() => {
   ipcMain.handle('editor:execute-file', (_, project, path) =>
     editorIPC.executeFileCommand(project, path)
   )
+  ipcMain.handle('editor:execute-api', () => editorIPC.executeApiRestQuery())
   ipcMain.handle('database:db-tables-created', (_, { project, path }) =>
     databaseIPC.tablesCreatedDb({ project, path })
   )
@@ -86,6 +87,9 @@ app.whenReady().then(() => {
   ipcMain.handle('database:db-atributes-created', (_, { project }) =>
     databaseIPC.allAtributesDatabase({ project })
   )
+
+  ipcMain.handle('express:initialize-app', () => openExpressServer())
+  ipcMain.handle('express:pause-app', () => stopExpressServer())
 
   createWindow()
 

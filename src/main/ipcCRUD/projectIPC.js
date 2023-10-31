@@ -160,6 +160,7 @@ class ProjectIPC {
       const errorStatus = searchCodeErrorPg(dataConnect)
       return { error: { data: errorStatus } }
     }
+    global.projectKey = project
     return false
   }
 }

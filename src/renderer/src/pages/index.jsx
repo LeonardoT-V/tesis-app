@@ -3,10 +3,12 @@ import { Outlet, defer } from 'react-router-dom'
 import WithNavSection from '../layout/WithNavSection'
 import EditorPage from './EditorPage'
 import TablesPage from './TablesPage'
+import ApiPage from './ApiPage'
 import TablesColumnPage from './TablesColumnPage'
 import BackupPage from './BackupPage'
 import { createHashRouter } from 'react-router-dom'
 import databaseAPI from '../api/databaseAPI'
+import HomePage from './HomePage'
 
 async function fetchDatabase() {
   const db = await databaseAPI.allAtributesDatabase()
@@ -34,7 +36,7 @@ export const router = createHashRouter([
     children: [
       {
         path: 'home',
-        element: <div className="bg-red-400 w-full">home</div>
+        element: <HomePage />
       },
       {
         path: 'editor',
@@ -51,6 +53,10 @@ export const router = createHashRouter([
       {
         path: 'backup',
         element: <BackupPage />
+      },
+      {
+        path: 'api',
+        element: <ApiPage />
       }
     ]
   }
